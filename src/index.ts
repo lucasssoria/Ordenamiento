@@ -33,6 +33,16 @@ for (let i = 0; i < nElementos - 1; i++) {
       vectorAños[j + 1] = aux;
       vectorNombres[j + 1] = aux1;
       vectorAltura[j + 1] = aux2;
+    } else if (
+      vectorAños[j] === vectorAños[j + 1] &&
+      vectorAltura[j] > vectorAltura[j + 1]
+    ) {
+      aux = vectorAltura[j];
+      aux1 = vectorNombres[j];
+      vectorAltura[j] = vectorAltura[j + 1];
+      vectorNombres[j] = vectorNombres[j + 1];
+      vectorAltura[j + 1] = aux;
+      vectorNombres[j + 1] = aux1;
     }
   }
 }
