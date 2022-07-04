@@ -8,7 +8,6 @@ let vectorNombres: string[] = new Array(0);
 let vectorAnios: number[] = new Array(0);
 let vectorAltura: number[] = new Array(0);
 let nElementos: number = 0;
-let aux, aux1, aux2;
 
 function cargarVectores(nombres: string[], anios: number[], altura: number[]) {
   nElementos = Number(prompt("Indique la cantidad de usuarios a ingresar: "));
