@@ -4,46 +4,66 @@
 // Ordenelos los tres vectores a la vez segun los años, y en caso que haya un empate, utilice la altura para desempatar.
 // Tener en cuenta que los intercambios tienen que cambiar los elementos de los tres vectores a la vez.
 
-let vectorNombres: string[] = new Array("");
-let vectorAños: number[] = new Array(0);
+let vectorNombres: string[] = new Array(0);
+let vectorAnios: number[] = new Array(0);
 let vectorAltura: number[] = new Array(0);
 let nElementos: number = 0;
-let aux, aux1, aux2;
-function cargarVectores(nombres: string[], años: number[], altura: number[]) {
+
+function cargarVectores(nombres: string[], anios: number[], altura: number[]) {
   nElementos = Number(prompt("Indique la cantidad de usuarios a ingresar: "));
   for (let i = 0; i < nElementos; i++) {
     nombres[i] = String(
       prompt("Usuario " + (i + 1) + ". Ingrese el nombre del usuario: ")
     );
-    años[i] = Number(prompt("Ingrese la edad: "));
+    anios[i] = Number(prompt("Ingrese la edad: "));
     altura[i] = Number(prompt("Ingrese la altura: "));
   }
 }
-cargarVectores(vectorNombres, vectorAños, vectorAltura);
-// Metodo burbuja (sort)
-for (let i = 0; i < nElementos - 1; i++) {
-  for (let j = 0; j < nElementos - 1; j++) {
-    if (vectorAños[j] > vectorAños[j + 1]) {
-      aux = vectorAños[j];
-      aux1 = vectorNombres[j];
-      aux2 = vectorAltura[j];
-      vectorAños[j] = vectorAños[j + 1];
-      vectorNombres[j] = vectorNombres[j + 1];
-      vectorAltura[j] = vectorAltura[j + 1];
-      vectorAños[j + 1] = aux;
-      vectorNombres[j + 1] = aux1;
-      vectorAltura[j + 1] = aux2;
-    } else if (
-      vectorAños[j] === vectorAños[j + 1] &&
-      vectorAltura[j] > vectorAltura[j + 1]
-    ) {
-      aux = vectorAltura[j];
-      aux1 = vectorNombres[j];
-      vectorAltura[j] = vectorAltura[j + 1];
-      vectorNombres[j] = vectorNombres[j + 1];
-      vectorAltura[j + 1] = aux;
-      vectorNombres[j + 1] = aux1;
+
+function comparador(anios: number[], altura: number[], i: number) {
+  let comparacion: number = 0;
+
+  if (anios[i] > anios[i + 1]) {
+    comparacion = 1;
+  } else if (anios[i] === anios[i + 1]) {
+    if (altura[i] > altura[i + 1]) {
+      comparacion = 1;
+    } else if (altura[i] < altura[i + 1]) {
+      comparacion = -1;
+    }
+  } else {
+    comparacion = -1;
+  }
+
+  return comparacion;
+}
+
+function intercambiarValores(array: any[], x: number, y: number) {
+  let aux: any;
+  aux = array[x];
+  array[x] = array[y];
+  array[y] = aux;
+}
+
+function ordenarVectores(
+  nombres: string[],
+  anios: number[],
+  altura: number[],
+  dimension: number
+) {
+  for (let i = 0; i < dimension - 1; i++) {
+    for (let j = 0; j < dimension - 1 - i; j++) {
+      if (comparador(anios, altura, j) === 1) {
+        intercambiarValores(anios, j, j + 1);
+        intercambiarValores(nombres, j, j + 1);
+        intercambiarValores(altura, j, j + 1);
+      }
     }
   }
 }
-console.log(vectorNombres, vectorAños, vectorAltura);
+
+cargarVectores(vectorNombres, vectorAnios, vectorAltura);
+// Metodo burbuja (sort)
+ordenarVectores(vectorNombres, vectorAnios, vectorAltura, nElementos);
+
+console.log(vectorNombres, vectorAnios, vectorAltura);
