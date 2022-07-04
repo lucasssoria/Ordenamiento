@@ -20,6 +20,24 @@ function cargarVectores(nombres: string[], anios: number[], altura: number[]) {
   }
 }
 
+function comparador(anios: number[], altura: number[], i: number) {
+  let comparacion: number = 0;
+
+  if (anios[i] > anios[i + 1]) {
+    comparacion = 1;
+  } else if (anios[i] === anios[i + 1]) {
+    if (altura[i] > altura[i + 1]) {
+      comparacion = 1;
+    } else if (altura[i] < altura[i + 1]) {
+      comparacion = -1;
+    }
+  } else {
+    comparacion = -1;
+  }
+
+  return comparacion;
+}
+
 function intercambiarValores(array: any[], x: number, y: number) {
   let aux: any;
   aux = array[x];
@@ -35,11 +53,7 @@ function ordenarVectores(
 ) {
   for (let i = 0; i < dimension - 1; i++) {
     for (let j = 0; j < dimension - 1 - i; j++) {
-      if (anios[j] > anios[j + 1]) {
-        intercambiarValores(anios, j, j + 1);
-        intercambiarValores(nombres, j, j + 1);
-        intercambiarValores(altura, j, j + 1);
-      } else if (anios[j] === anios[j + 1] && altura[j] > altura[j + 1]) {
+      if (comparador(anios, altura, j) === 1) {
         intercambiarValores(anios, j, j + 1);
         intercambiarValores(nombres, j, j + 1);
         intercambiarValores(altura, j, j + 1);
