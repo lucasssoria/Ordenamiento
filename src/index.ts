@@ -33,8 +33,8 @@ function ordenarVectores(
   altura: number[],
   dimension: number
 ) {
-  for (let i = 1; i < dimension; i++) {
-    for (let j = 0; j < dimension - i; j++) {
+  for (let i = 0; i < dimension - 1; i++) {
+    for (let j = 0; j < dimension - 1 - i; j++) {
       if (anios[j] > anios[j + 1]) {
         intercambiarValores(anios, j, j + 1);
         intercambiarValores(nombres, j, j + 1);
